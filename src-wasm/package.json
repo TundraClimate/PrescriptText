@@ -1,0 +1,7 @@
+{
+  "name": "wasm",
+  "private": true,
+  "scripts": {
+    "build": "wasm-pack build --target nodejs --out-dir ../wasm/"
+  }
+}
