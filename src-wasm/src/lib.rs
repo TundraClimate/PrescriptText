@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-pub fn test_hello() -> String {
-    String::from("Hello, World")
+pub fn test_prescript() -> String {
+    String::from("_Clear._")
 }

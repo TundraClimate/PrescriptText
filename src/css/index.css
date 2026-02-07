@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "pixel";
+  src: url("../../font/FSEX302.ttf");
+}
+
+:root {
+  background-color: #0e1114;
+  color: #99caff;
+  font-family: "pixel";
+  font-size: 3em;
+  text-align: center;
+}
