@@ -1,21 +1,4 @@
-@font-face {
-  font-family: "pixel";
-  src: url("../../font/PxPlus_IBM_VGA8.ttf");
-}
-
 :root {
   background-color: #0e1114;
-  color: #99caff;
-  font-family: "pixel";
-  font-size: 48px;
-  line-height: 48px;
-  image-rendering: pixelated;
   text-align: center;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-  font-smooth: never;
-  letter-spacing: 0;
-  text-shadow:
-    0 0 1px #6cf,
-    0 0 2px #6cf;
 }

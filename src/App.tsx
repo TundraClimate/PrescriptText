@@ -1,9 +1,9 @@
-import { test_prescript } from "./wasm";
+import { PxCanvas } from "./PxCanvas";
 
 export default () => {
     return (
         <div>
-            <p>{test_prescript()}</p>
+            <PxCanvas>_CLEAR._</PxCanvas>
         </div>
     );
 };
