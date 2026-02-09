@@ -17,14 +17,32 @@ body {
   min-height: 100vh;
 }
 
+input {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+}
+
 header {
+  width: 100%;
   margin-bottom: auto;
   align-self: flex-start;
   padding-left: 1em;
 }
 
 footer {
+  width: 100%;
   margin-top: auto;
   align-self: center;
-  padding-bottom: 1em;
+  padding-bottom: 2em;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.view {
+  align-self: center;
+}
+
+.nav {
 }
