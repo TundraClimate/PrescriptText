@@ -1046,7 +1046,7 @@ pub fn get_glyph(ch: char) -> Option<[u8; CHAR_H]> {
     }
 }
 
-pub fn scale_glyph(ch: char, scale: usize) -> Vec<u8> {
+pub fn scale_glyph(ch: char, scale: usize, alpha: u8) -> Vec<u8> {
     let scale = scale.max(1);
     let sw = CHAR_W * scale;
     let sh = CHAR_H * scale;
@@ -1063,7 +1063,7 @@ pub fn scale_glyph(ch: char, scale: usize) -> Vec<u8> {
                 for dy in 0..scale {
                     for dx in 0..scale {
                         let i = ((x * scale + dx) + (y * scale + dy) * sw) * PIXEL_BIT;
-                        buf[i..i + 4].copy_from_slice(&[150, 220, 255, 255]);
+                        buf[i..i + 4].copy_from_slice(&[150, 220, 255, alpha]);
                     }
                 }
             }

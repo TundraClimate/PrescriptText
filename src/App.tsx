@@ -1,7 +1,10 @@
 import { PxCanvas } from "./PxCanvas";
 import { Scramble } from "./Scramble";
+import { createSignal } from "solid-js";
 
 export default () => {
+    const [devHover, setDevHover] = createSignal(false);
+
     return (
         <div class="content">
             <input />
@@ -15,9 +18,19 @@ export default () => {
             </div>
             <div class="nav"></div>
             <footer>
-                <Scramble trigger={() => true} scale={3} maxPerRoll={10} wait={3}>
-                    DEVELOP:TundraClimate
-                </Scramble>
+                <div class="btn">
+                    <Scramble
+                        trigger={() => true}
+                        scale={3}
+                        maxPerRoll={10}
+                        wait={3}
+                        alpha={devHover() ? 60 : 255}
+                        onPointerEnter={() => setDevHover(true)}
+                        onPointerLeave={() => setDevHover(false)}
+                    >
+                        DEVELOP:TundraClimate
+                    </Scramble>
+                </div>
             </footer>
         </div>
     );

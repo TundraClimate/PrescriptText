@@ -8,8 +8,8 @@ pub fn is_available(ch: char) -> bool {
 }
 
 #[wasm_bindgen]
-pub fn gen_data(ch: char, scale: usize) -> Vec<u8> {
-    glyph::scale_glyph(ch, scale)
+pub fn gen_data(ch: char, scale: usize, alpha: u8) -> Vec<u8> {
+    glyph::scale_glyph(ch, scale, alpha)
 }
 
 #[wasm_bindgen]

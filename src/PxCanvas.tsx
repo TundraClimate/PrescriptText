@@ -3,12 +3,17 @@ import { is_available, gen_data } from "./wasm";
 
 type PxCanvasProp = {
     children: string;
+    onClick?: () => void;
+    onPointerEnter?: () => void;
+    onPointerLeave?: () => void;
     scale?: number;
+    alpha?: number;
 };
 
 export const PxCanvas = (props: PxCanvasProp) => {
     let canvas!: HTMLCanvasElement;
     const calcScale = () => props.scale ?? 4;
+    const calcAlpha = () => props.alpha ?? 255;
 
     const text = () => {
         let res = "";
@@ -43,7 +48,7 @@ export const PxCanvas = (props: PxCanvasProp) => {
         ctx.clearRect(0, 0, width, height);
 
         [...props.children].forEach((child, i) => {
-            const data = gen_data(child, calcScale())!;
+            const data = gen_data(child, calcScale(), calcAlpha())!;
             const img = new ImageData(new Uint8ClampedArray(data), charW, charH);
 
             ctx.putImageData(img, i * charW + i * pad, 0);
@@ -57,5 +62,13 @@ export const PxCanvas = (props: PxCanvasProp) => {
     onMount(draw);
     createEffect(draw);
 
-    return <canvas class="pxcanvas" ref={canvas} />;
+    return (
+        <canvas
+            class="pxcanvas"
+            ref={canvas}
+            onClick={props.onClick}
+            onPointerEnter={props.onPointerEnter}
+            onPointerLeave={props.onPointerLeave}
+        />
+    );
 };

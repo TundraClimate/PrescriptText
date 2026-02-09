@@ -5,9 +5,13 @@ import { roll_glyph, roll_random } from "./wasm";
 type ScrambleProps = {
     children: string;
     trigger: () => boolean;
+    onClick?: () => void;
+    onPointerEnter?: () => void;
+    onPointerLeave?: () => void;
     maxPerRoll?: number;
     wait?: number;
     scale?: number;
+    alpha?: number;
 };
 
 export const Scramble = (props: ScrambleProps) => {
@@ -62,5 +66,15 @@ export const Scramble = (props: ScrambleProps) => {
         }),
     );
 
-    return <PxCanvas scale={scale()}>{scramble()}</PxCanvas>;
+    return (
+        <PxCanvas
+            scale={scale()}
+            alpha={props.alpha}
+            onClick={props.onClick}
+            onPointerEnter={props.onPointerEnter}
+            onPointerLeave={props.onPointerLeave}
+        >
+            {scramble()}
+        </PxCanvas>
+    );
 };
