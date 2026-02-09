@@ -3,6 +3,12 @@ import { PxCanvas } from "./PxCanvas";
 export default () => {
     return (
         <div>
+            <PxCanvas>Sacrifice is the easy path</PxCanvas>
+            <br />
+            <PxCanvas>And S is not for sayonara</PxCanvas>
+            <br />
+            <PxCanvas>Will you forgive me at last?</PxCanvas>
+            <br />
             <PxCanvas>0123456789</PxCanvas>
             <br />
             <PxCanvas>ABCDEFG</PxCanvas>
