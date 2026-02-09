@@ -1,15 +1,13 @@
 import { PxCanvas } from "./PxCanvas";
 import { Scramble } from "./Scramble";
-import { createSignal } from "solid-js";
+import { ButtonScramble } from "./ButtonCanvas";
 
 export default () => {
-    const [devHover, setDevHover] = createSignal(false);
-
     return (
         <div class="content">
             <input />
             <header>
-                <Scramble trigger={() => true} scale={8} maxPerRoll={5}>
+                <Scramble scale={8} maxPerRoll={5}>
                     _Make Your Prescript._
                 </Scramble>
             </header>
@@ -18,19 +16,9 @@ export default () => {
             </div>
             <div class="nav"></div>
             <footer>
-                <div class="btn">
-                    <Scramble
-                        trigger={() => true}
-                        scale={3}
-                        maxPerRoll={10}
-                        wait={3}
-                        alpha={devHover() ? 60 : 255}
-                        onPointerEnter={() => setDevHover(true)}
-                        onPointerLeave={() => setDevHover(false)}
-                    >
-                        DEVELOP:TundraClimate
-                    </Scramble>
-                </div>
+                <ButtonScramble scale={3} maxPerRoll={10} wait={3}>
+                    DEVELOP:TundraClimate
+                </ButtonScramble>
             </footer>
         </div>
     );

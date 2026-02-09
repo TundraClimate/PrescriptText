@@ -4,7 +4,7 @@ import { roll_glyph, roll_random } from "./wasm";
 
 type ScrambleProps = {
     children: string;
-    trigger: () => boolean;
+    trigger?: () => boolean;
     onClick?: () => void;
     onPointerEnter?: () => void;
     onPointerLeave?: () => void;
@@ -61,7 +61,7 @@ export const Scramble = (props: ScrambleProps) => {
     };
 
     createEffect(
-        on([props.trigger], () => {
+        on([props.trigger ? props.trigger : () => true], () => {
             startScramble();
         }),
     );
