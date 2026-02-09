@@ -1,4 +1,30 @@
 :root {
   background-color: #0e1114;
-  text-align: center;
+}
+
+body {
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+}
+
+header {
+  margin-bottom: auto;
+  align-self: flex-start;
+  padding-left: 1em;
+}
+
+footer {
+  margin-top: auto;
+  align-self: center;
+  padding-bottom: 1em;
 }
