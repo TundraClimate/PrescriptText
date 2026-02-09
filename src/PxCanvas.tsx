@@ -6,14 +6,14 @@ type PxCanvasProp = {
     scale?: number;
 };
 
-export const PxCanvas = ({ children, scale }: PxCanvasProp) => {
+export const PxCanvas = (props: PxCanvasProp) => {
     let canvas!: HTMLCanvasElement;
-    const calcScale = () => scale ?? 4;
+    const calcScale = () => props.scale ?? 4;
 
     const text = () => {
         let res = "";
 
-        [...children].forEach((child) => {
+        [...props.children].forEach((child) => {
             if (is_available(child)) {
                 res += child;
             } else {
@@ -42,7 +42,7 @@ export const PxCanvas = ({ children, scale }: PxCanvasProp) => {
 
         ctx.clearRect(0, 0, width, height);
 
-        [...children].forEach((child, i) => {
+        [...props.children].forEach((child, i) => {
             const data = gen_data(child, calcScale())!;
             const img = new ImageData(new Uint8ClampedArray(data), charW, charH);
 

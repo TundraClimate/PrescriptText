@@ -775,3 +775,33 @@ pub fn scale_glyph(ch: char, scale: usize) -> Vec<u8> {
 
     buf
 }
+
+pub fn roll_one(list: &str) -> char {
+    let list = list.replace(|c| get_glyph(c).is_none(), "");
+
+    list.chars()
+        .nth(rand::random_range(0..list.len()))
+        .unwrap_or('_')
+}
+
+pub fn rolln(list: &str, target: char, max_roll: usize) -> Vec<char> {
+    let mut res = vec![];
+
+    for i in 1..=max_roll {
+        if i == max_roll {
+            res.push(target);
+
+            break;
+        }
+
+        let rolled = roll_one(list);
+
+        res.push(rolled);
+
+        if rolled == target {
+            break;
+        }
+    }
+
+    res
+}

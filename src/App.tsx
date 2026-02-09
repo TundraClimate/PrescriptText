@@ -1,6 +1,10 @@
 import { PxCanvas } from "./PxCanvas";
+import { Scramble } from "./Scramble";
+import { createSignal } from "solid-js";
 
 export default () => {
+    const [trigger, setTrigger] = createSignal(true);
+
     return (
         <div>
             <PxCanvas>Sacrifice is the easy path</PxCanvas>
@@ -8,6 +12,12 @@ export default () => {
             <PxCanvas>And S is not for sayonara</PxCanvas>
             <br />
             <PxCanvas>Will you forgive me at last?</PxCanvas>
+            <br />
+            <Scramble trigger={trigger} maxPerRoll={10}>
+                _CLEAR._
+            </Scramble>
+            <br />
+            <button onClick={() => setTrigger((b) => !b)} />
             <br />
             <PxCanvas>0123456789</PxCanvas>
             <br />
