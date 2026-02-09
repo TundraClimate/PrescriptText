@@ -16,7 +16,7 @@ export default () => {
             </Scramble>
             <br />
             <Scramble trigger={trigger} maxPerRoll={20} wait={1}>
-                Will you forgive me at last?
+                Will you forgive me at last?]
             </Scramble>
             <br />
             <button onClick={() => setTrigger((b) => !b)} />
