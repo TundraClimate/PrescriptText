@@ -31,7 +31,7 @@ export const PxCanvas = ({ children, scale }: PxCanvasProp) => {
         const textLen = text().length;
 
         const charW = 5 * calcScale();
-        const charH = 8 * calcScale();
+        const charH = 9 * calcScale();
         const pad = 1 * calcScale();
 
         const width = textLen * charW + pad * (textLen - 1);
