@@ -7,14 +7,16 @@ export default () => {
 
     return (
         <div>
-            <PxCanvas>Sacrifice is the easy path</PxCanvas>
+            <Scramble trigger={trigger} maxPerRoll={20} wait={1}>
+                Sacrifice is the easy path
+            </Scramble>
             <br />
-            <PxCanvas>And S is not for sayonara</PxCanvas>
+            <Scramble trigger={trigger} maxPerRoll={20} wait={1}>
+                And S is not for sayonara
+            </Scramble>
             <br />
-            <PxCanvas>Will you forgive me at last?</PxCanvas>
-            <br />
-            <Scramble trigger={trigger} maxPerRoll={10}>
-                _CLEAR._
+            <Scramble trigger={trigger} maxPerRoll={20} wait={1}>
+                Will you forgive me at last?
             </Scramble>
             <br />
             <button onClick={() => setTrigger((b) => !b)} />

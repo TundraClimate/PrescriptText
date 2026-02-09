@@ -6,24 +6,46 @@ type ScrambleProps = {
     children: string;
     trigger: () => boolean;
     maxPerRoll?: number;
+    wait?: number;
     scale?: number;
 };
 
 export const Scramble = (props: ScrambleProps) => {
     const [scramble, setScramble] = createSignal("");
+    const text = () => props.children;
+    const wait = () => props.wait ?? 0;
+    const scale = () => props.scale ?? 4;
+    const maxPerRoll = () => props.maxPerRoll ?? 10;
 
     const startScramble = async () => {
         setScramble("");
 
-        for (let i = 0; props.children.length > i; i++) {
-            const rolled = roll_glyph(props.children[i]!, props.maxPerRoll ?? 10);
+        const textLen = text().length;
+
+        if (wait() != 0) {
+            let tmpScramble = Array.from(scramble());
+            const endTime = Date.now() + wait() * 1000;
+
+            while (endTime > Date.now()) {
+                for (let i = 0; textLen > i; i++) {
+                    tmpScramble[i] = roll_random();
+                }
+
+                setScramble(tmpScramble.join(""));
+
+                await new Promise((r) => setTimeout(r, 0));
+            }
+        }
+
+        for (let i = 0; textLen > i; i++) {
+            const rolled = roll_glyph(text()[i]!, maxPerRoll());
             let tmpScramble = Array.from(scramble());
 
             for (let char of rolled) {
                 tmpScramble[i] = char;
 
-                if (i + 1 != props.children.length) {
-                    for (let j = i + 1; props.children.length > j; j++) {
+                if (i + 1 != textLen) {
+                    for (let j = i + 1; textLen > j; j++) {
                         tmpScramble[j] = roll_random();
                     }
                 }
@@ -40,5 +62,5 @@ export const Scramble = (props: ScrambleProps) => {
         }),
     );
 
-    return <PxCanvas scale={props.scale ?? 4}>{scramble()}</PxCanvas>;
+    return <PxCanvas scale={scale()}>{scramble()}</PxCanvas>;
 };
