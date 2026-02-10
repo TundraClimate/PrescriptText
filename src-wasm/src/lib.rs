@@ -13,6 +13,11 @@ pub fn gen_data(ch: char, scale: usize, alpha: u8) -> Vec<u8> {
 }
 
 #[wasm_bindgen]
+pub fn gen_cursor_data(scale: usize, alpha: u8) -> Vec<u8> {
+    glyph::scale_with(glyph::cursor_glyph(), scale, alpha)
+}
+
+#[wasm_bindgen]
 pub fn roll_glyph(target: char, max_roll: usize) -> Vec<String> {
     let roll_list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,._";
 

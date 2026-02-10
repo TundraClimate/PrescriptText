@@ -1,5 +1,5 @@
 import { onMount, createEffect } from "solid-js";
-import { is_available, gen_data } from "./wasm";
+import { is_available, gen_data, gen_cursor_data } from "./wasm";
 
 type PxCanvasProp = {
     children: string;
@@ -48,7 +48,12 @@ export const PxCanvas = (props: PxCanvasProp) => {
         ctx.clearRect(0, 0, width, height);
 
         [...props.children].forEach((child, i) => {
-            const data = gen_data(child, calcScale(), calcAlpha())!;
+            let data = gen_data(child, calcScale(), calcAlpha())!;
+
+            if (child == "|") {
+                data = gen_cursor_data(calcScale(), calcAlpha());
+            }
+
             const img = new ImageData(new Uint8ClampedArray(data), charW, charH);
 
             ctx.putImageData(img, i * charW + i * pad, 0);

@@ -1046,6 +1046,20 @@ pub fn get_glyph(ch: char) -> Option<[u8; CHAR_H]> {
     }
 }
 
+pub fn cursor_glyph() -> [u8; CHAR_H] {
+    [
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+        convert("OO..."),
+    ]
+}
+
 pub fn scale_glyph(ch: char, scale: usize, alpha: u8) -> Vec<u8> {
     let scale = scale.max(1);
     let sw = CHAR_W * scale;
@@ -1055,9 +1069,17 @@ pub fn scale_glyph(ch: char, scale: usize, alpha: u8) -> Vec<u8> {
         return vec![0; sw * sh * 4];
     };
 
+    scale_with(base, scale, alpha)
+}
+
+pub fn scale_with(source: [u8; CHAR_H], scale: usize, alpha: u8) -> Vec<u8> {
+    let scale = scale.max(1);
+    let sw = CHAR_W * scale;
+    let sh = CHAR_H * scale;
+
     let mut buf = vec![0u8; sw * sh * PIXEL_BIT];
 
-    for (y, bpix) in base.iter().enumerate().take(CHAR_H) {
+    for (y, bpix) in source.iter().enumerate().take(CHAR_H) {
         for x in 0..CHAR_W {
             if (bpix >> (CHAR_W - 1 - x)) & 1 == 1 {
                 for dy in 0..scale {

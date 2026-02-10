@@ -44,9 +44,21 @@ footer {
   align-self: center;
 }
 
+.view-cursor {
+  padding-left: 1em;
+}
+
+.nothing {
+  display: none;
+}
+
 .nav {
 }
 
 .btn {
   cursor: pointer;
+}
+
+.input-type {
+  cursor: text;
 }

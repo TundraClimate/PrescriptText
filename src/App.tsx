@@ -1,27 +1,17 @@
-import { PxCanvas } from "./PxCanvas";
 import { Scramble } from "./Scramble";
+import { InputCanvas } from "./InputCanvas";
 import { ButtonScramble } from "./ButtonCanvas";
-import { onMount } from "solid-js";
 
 export default () => {
-    const focusInput = () => {
-        document.getElementById("hidden-input")!.focus();
-    };
-
-    onMount(focusInput);
-
     return (
         <div class="content">
-            <input id="hidden-input" onInput={(input) => console.log(input.data)} />
             <header>
                 <Scramble scale={8} maxPerRoll={5}>
                     _Make Your Prescript._
                 </Scramble>
             </header>
             <div class="view">
-                <PxCanvas scale={8} onClick={focusInput}>
-                    Hello
-                </PxCanvas>
+                <InputCanvas scale={8} />
             </div>
             <div class="nav"></div>
             <footer>
