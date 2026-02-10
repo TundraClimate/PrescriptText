@@ -35,7 +35,7 @@ export default () => {
             </div>
             <footer>
                 <ButtonScramble scale={3} maxPerRoll={10} wait={3}>
-                    DEVELOP:TundraClimate
+                    DEV:Tundra
                 </ButtonScramble>
                 {reroll() ? (
                     <ButtonScramble scale={3} onClick={clearThis}>
@@ -46,6 +46,9 @@ export default () => {
                         _Take THIS._
                     </ButtonScramble>
                 )}
+                <ButtonScramble scale={3} maxPerRoll={10} wait={3}>
+                    Download
+                </ButtonScramble>
             </footer>
         </div>
     );
