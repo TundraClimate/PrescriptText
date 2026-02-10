@@ -13,7 +13,6 @@ export default () => {
             <div class="view">
                 <InputCanvas scale={8} />
             </div>
-            <div class="nav"></div>
             <footer>
                 <ButtonScramble scale={3} maxPerRoll={10} wait={3}>
                     DEVELOP:TundraClimate

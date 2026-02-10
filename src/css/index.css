@@ -17,7 +17,7 @@ body {
   min-height: 100vh;
 }
 
-input {
+#hidden-input {
   position: fixed;
   left: -9999px;
   top: 0;
@@ -48,11 +48,12 @@ footer {
   padding-left: 1em;
 }
 
-.nothing {
-  display: none;
+.view-box {
+  text-align: center;
 }
 
-.nav {
+.nothing {
+  display: none;
 }
 
 .btn {

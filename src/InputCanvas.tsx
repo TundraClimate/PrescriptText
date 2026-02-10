@@ -20,14 +20,8 @@ export const InputCanvas = (props: InputCanvasProps) => {
     };
 
     const putGlyph = (ev: string | null) => {
-        if (ev == null) {
-            if (input().length > 1) {
-                setInput((i) => i.slice(0, i.length - 1));
-            } else {
-                setInput("");
-            }
-        } else {
-            setInput((i) => i + ev);
+        if (ev != null) {
+            setInput(ev);
         }
     };
 
@@ -41,27 +35,45 @@ export const InputCanvas = (props: InputCanvasProps) => {
 
     return (
         <div class="input-type">
-            <input
+            <textarea
                 id="hidden-input"
                 onFocusOut={outFocusInput}
-                onInput={(ev) => putGlyph(ev.data)}
+                onInput={(ev) => putGlyph(ev.target.value)}
             />
             {input() || isFocus() ? (
-                <div>
-                    <span class={input().length == 0 ? "nothing" : ""}>
-                        <PxCanvas scale={props.scale} onClick={focusInput}>
-                            {input()}
-                        </PxCanvas>
-                    </span>
-                    <span class="view-cursor">
-                        <PxCanvas
-                            scale={props.scale}
-                            onClick={focusInput}
-                            alpha={swi() ? 120 : 60}
-                        >
-                            {isFocus() ? "|" : " "}
-                        </PxCanvas>
-                    </span>
+                <div class="view-box">
+                    {input()
+                        .split("\n")
+                        .map((line, i) => {
+                            if (i + 1 == input().split("\n").length) {
+                                return (
+                                    <div>
+                                        <span class={line.length == 0 ? "nothing" : ""}>
+                                            <PxCanvas scale={props.scale} onClick={focusInput}>
+                                                {line}
+                                            </PxCanvas>
+                                        </span>
+                                        <span class="view-cursor">
+                                            <PxCanvas
+                                                scale={props.scale}
+                                                onClick={focusInput}
+                                                alpha={swi() ? 120 : 60}
+                                            >
+                                                {isFocus() ? "|" : " "}
+                                            </PxCanvas>
+                                        </span>
+                                    </div>
+                                );
+                            }
+
+                            return (
+                                <div>
+                                    <PxCanvas scale={props.scale} onClick={focusInput}>
+                                        {line}
+                                    </PxCanvas>
+                                </div>
+                            );
+                        })}
                 </div>
             ) : (
                 <PxCanvas
