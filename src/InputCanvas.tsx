@@ -1,16 +1,23 @@
-import { PxCanvas } from "./PxCanvas";
-import { createSignal, onMount } from "solid-js";
+import { Scramble } from "./Scramble";
+import { createSignal, onMount, on, createEffect } from "solid-js";
 
 type InputCanvasProps = {
     scale?: number;
+    trigger: () => boolean;
+    onInput: (ref: string) => void;
 };
 
 export const InputCanvas = (props: InputCanvasProps) => {
     const [input, setInput] = createSignal("");
     const [swi, setSwitch] = createSignal(true);
     const [isFocus, setIsFocus] = createSignal(false);
+    const [rolln, setRoll] = createSignal(0);
 
     const focusInput = () => {
+        if (rolln() != 0) {
+            return;
+        }
+
         document.getElementById("hidden-input")!.focus();
         setIsFocus(true);
     };
@@ -22,6 +29,7 @@ export const InputCanvas = (props: InputCanvasProps) => {
     const putGlyph = (ev: string | null) => {
         if (ev != null) {
             setInput(ev);
+            props.onInput(ev);
         }
     };
 
@@ -33,8 +41,22 @@ export const InputCanvas = (props: InputCanvasProps) => {
         }
     });
 
+    createEffect(
+        on(props.trigger, (v) => {
+            if (v) {
+                setRoll(10);
+            } else {
+                setRoll(0);
+
+                if (input().length != 0) {
+                    focusInput();
+                }
+            }
+        }),
+    );
+
     return (
-        <div class="input-type">
+        <div class={rolln() == 0 ? "input-type" : ""}>
             <textarea
                 id="hidden-input"
                 onFocusOut={outFocusInput}
@@ -49,18 +71,27 @@ export const InputCanvas = (props: InputCanvasProps) => {
                                 return (
                                     <div>
                                         <span class={line.length == 0 ? "nothing" : ""}>
-                                            <PxCanvas scale={props.scale} onClick={focusInput}>
+                                            <Scramble
+                                                maxPerRoll={rolln()}
+                                                fillFirst={rolln() == 10}
+                                                initialize={line}
+                                                trigger={props.trigger}
+                                                scale={props.scale}
+                                                onClick={focusInput}
+                                            >
                                                 {line}
-                                            </PxCanvas>
+                                            </Scramble>
                                         </span>
-                                        <span class="view-cursor">
-                                            <PxCanvas
+                                        <span class={isFocus() ? "view-cursor" : "nothing"}>
+                                            <Scramble
+                                                maxPerRoll={rolln()}
+                                                fillFirst={rolln() == 10}
                                                 scale={props.scale}
                                                 onClick={focusInput}
                                                 alpha={swi() ? 120 : 60}
                                             >
-                                                {isFocus() ? "|" : " "}
-                                            </PxCanvas>
+                                                |
+                                            </Scramble>
                                         </span>
                                     </div>
                                 );
@@ -68,21 +99,29 @@ export const InputCanvas = (props: InputCanvasProps) => {
 
                             return (
                                 <div>
-                                    <PxCanvas scale={props.scale} onClick={focusInput}>
+                                    <Scramble
+                                        maxPerRoll={rolln()}
+                                        fillFirst={rolln() == 10}
+                                        initialize={line}
+                                        trigger={props.trigger}
+                                        scale={props.scale}
+                                        onClick={focusInput}
+                                    >
                                         {line}
-                                    </PxCanvas>
+                                    </Scramble>
                                 </div>
                             );
                         })}
                 </div>
             ) : (
-                <PxCanvas
+                <Scramble
                     scale={props.scale}
+                    maxPerRoll={5}
                     onClick={focusInput}
                     alpha={swi() ? 120 : 60}
                 >
                     _Click here._
-                </PxCanvas>
+                </Scramble>
             )}
         </div>
     );

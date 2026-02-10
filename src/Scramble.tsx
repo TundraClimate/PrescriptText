@@ -12,17 +12,20 @@ type ScrambleProps = {
     wait?: number;
     scale?: number;
     alpha?: number;
+    fillFirst?: boolean;
+    initialize?: string;
 };
 
 export const Scramble = (props: ScrambleProps) => {
-    const [scramble, setScramble] = createSignal("");
+    const [scramble, setScramble] = createSignal(props.initialize ?? "");
     const text = () => props.children;
     const wait = () => props.wait ?? 0;
     const scale = () => props.scale ?? 4;
     const maxPerRoll = () => props.maxPerRoll ?? 10;
+    const fillFirst = () => props.fillFirst ?? true;
 
     const startScramble = async () => {
-        setScramble("");
+        setScramble(props.initialize ?? "");
 
         const textLen = text().length;
 
@@ -50,7 +53,9 @@ export const Scramble = (props: ScrambleProps) => {
 
                 if (i + 1 != textLen) {
                     for (let j = i + 1; textLen > j; j++) {
-                        tmpScramble[j] = roll_random();
+                        if (fillFirst()) {
+                            tmpScramble[j] = roll_random();
+                        }
                     }
                 }
 
@@ -61,7 +66,7 @@ export const Scramble = (props: ScrambleProps) => {
     };
 
     createEffect(
-        on([props.trigger ? props.trigger : () => true], () => {
+        on([props.trigger ? props.trigger : () => { }], () => {
             startScramble();
         }),
     );

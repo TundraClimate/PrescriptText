@@ -1104,6 +1104,10 @@ pub fn roll_one(list: &str) -> char {
 }
 
 pub fn rolln(list: &str, target: char, max_roll: usize) -> Vec<char> {
+    if max_roll == 0 {
+        return vec![target];
+    }
+
     let mut res = vec![];
 
     for i in 1..=max_roll {
