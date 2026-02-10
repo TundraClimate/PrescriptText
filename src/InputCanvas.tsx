@@ -63,7 +63,7 @@ export const InputCanvas = (props: InputCanvasProps) => {
                 onInput={(ev) => putGlyph(ev.target.value)}
             />
             {input() || isFocus() ? (
-                <div class="view-box">
+                <div id="view-box">
                     {input()
                         .split("\n")
                         .map((line, i) => {
@@ -82,17 +82,21 @@ export const InputCanvas = (props: InputCanvasProps) => {
                                                 {line}
                                             </Scramble>
                                         </span>
-                                        <span class={isFocus() ? "view-cursor" : "nothing"}>
-                                            <Scramble
-                                                maxPerRoll={rolln()}
-                                                fillFirst={rolln() == 10}
-                                                scale={props.scale}
-                                                onClick={focusInput}
-                                                alpha={swi() ? 120 : 60}
-                                            >
-                                                |
-                                            </Scramble>
-                                        </span>
+                                        {isFocus() ? (
+                                            <span class="view-cursor">
+                                                <Scramble
+                                                    maxPerRoll={rolln()}
+                                                    fillFirst={rolln() == 10}
+                                                    scale={props.scale}
+                                                    onClick={focusInput}
+                                                    alpha={swi() ? 120 : 60}
+                                                >
+                                                    |
+                                                </Scramble>
+                                            </span>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </div>
                                 );
                             }
